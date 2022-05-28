@@ -1,0 +1,28 @@
+name: Deploy to GH
+
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      IS_GITHUB: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2.1.0
+        name: Install PNPM
+        with:
+          version: 6
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+          cache: "pnpm"
+          cache-dependency-path: "**/pnpm-lock.yaml"
+      - run: |
+          pnpm install
+          pnpm build
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
