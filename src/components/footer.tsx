@@ -13,7 +13,7 @@ export const Footer = () => {
 
 			<a
 				className='text-blue-900 underline'
-				href='https://github.com/UltiRequiem/fibonacci.ultirequiem.com'
+				href='https://github.com/UltiRequiem/audio-visualizer'
 			>
         Source Code
 			</a>

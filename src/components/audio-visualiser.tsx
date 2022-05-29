@@ -3,6 +3,8 @@ import {Component, createRef, RefObject} from 'preact';
 export interface AudioVisualiserProps {
 	audioData: Uint8Array;
 	classes?: string;
+	width?: number;
+	height?: number;
 }
 
 export class AudioVisualiser extends Component<AudioVisualiserProps> {
@@ -52,8 +54,8 @@ export class AudioVisualiser extends Component<AudioVisualiserProps> {
 		return (
 			<canvas
 				class={this.props.classes}
-				width='300'
-				height='300'
+				width={this.props.width ?? '300'}
+				height={this.props.height ?? '300'}
 				ref={this.canvas}
 			/>
 		);

@@ -1,10 +1,24 @@
 # Audio Vizualizer
 
-## Deploy
+Audio Waves Vizualizer.
+
+Made with [Preact ⚛️](https://preactjs.com),
+[TailwindCSS](https://tailwindcss.com) and
+[The Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API).
+
+## Visit The Site
+
+### GitHub Pages 🐱
+
+https://ulti.js.org/audio-visualizer
 
 ### Cloudflare Workers 👷
 
 https://audio-visualizer.pages.dev
+
+### Netlify 🧀
+
+https://ulti-audio-visualizer.netlify.app
 
 ## Support
 

@@ -4,6 +4,8 @@ import {AudioVisualiser} from './audio-visualiser';
 export interface AudioAnalyserProps {
 	audio: MediaStream;
 	classses?: string;
+	width?: number;
+	height?: number;
 }
 export interface AudioAnalyserState {
 	audioData: Uint8Array;
@@ -51,6 +53,8 @@ AudioAnalyserState
 	render() {
 		return (
 			<AudioVisualiser
+				width={this.props.width}
+				height={this.props.height}
 				classes={this.props.classses}
 				audioData={this.state.audioData}
 			/>
