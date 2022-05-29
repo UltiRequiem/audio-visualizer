@@ -1,1 +1,1 @@
-export * from "./audio-analyser"
+export * from './audio-analyser';

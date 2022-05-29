@@ -1,55 +1,53 @@
-import { Component, createRef } from "preact";
+import {Component, createRef, RefObject} from 'preact';
 
 export interface AudioVisualiserProps {
-  audioData: any;
+	audioData: any;
 }
 
-export class AudioVisualiser extends Component {
-  public canvas: any;
+export class AudioVisualiser extends Component<AudioVisualiserProps> {
+	public canvas: RefObject<HTMLCanvasElement>;
 
-  constructor(props: AudioVisualiser) {
-    super(props);
-    this.canvas = createRef();
-  }
+	constructor(props: AudioVisualiserProps) {
+		super(props);
 
-  componentDidUpdate() {
-    this.draw();
-  }
+		this.canvas = createRef();
+	}
 
-  draw() {
-    //@ts-expect-error
-    const { audioData } = this.props;
+	componentDidUpdate() {
+		this.draw();
+	}
 
-    const canvas = this.canvas.current;
+	draw() {
+		const {audioData} = this.props;
 
-    const height = canvas.height;
+		const canvas = this.canvas.current!;
 
-    const width = canvas.width;
+		const {height, width} = canvas;
 
-    const context = canvas.getContext("2d");
+		const context = canvas.getContext('2d')!;
 
-    let x = 0;
+		let x = 0;
 
-    const sliceWidth = (width * 1.0) / audioData.length;
+		const sliceWidth = (Number(width)) / audioData.length;
 
-    context.lineWidth = 2;
-    context.strokeStyle = "#000000";
-    context.clearRect(0, 0, width, height);
+		context.lineWidth = 2;
+		context.strokeStyle = '#000000';
+		context.clearRect(0, 0, width, height);
 
-    context.beginPath();
-    context.moveTo(0, height / 2);
+		context.beginPath();
+		context.moveTo(0, height / 2);
 
-    for (const item of audioData) {
-      const y = (item / 255.0) * height;
-      context.lineTo(x, y);
-      x += sliceWidth;
-    }
+		for (const item of audioData) {
+			const y = (item / 255) * height;
+			context.lineTo(x, y);
+			x += sliceWidth;
+		}
 
-    context.lineTo(x, height / 2);
-    context.stroke();
-  }
+		context.lineTo(x, height / 2);
+		context.stroke();
+	}
 
-  render() {
-    return <canvas width="300" height="300" ref={this.canvas} />;
-  }
+	render() {
+		return <canvas width='300' height='300' ref={this.canvas} />;
+	}
 }

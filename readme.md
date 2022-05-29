@@ -1,6 +1,5 @@
 audio vizualizer
 
-
 ## Deploy
 
 ### Cloudflare Workers 👷
