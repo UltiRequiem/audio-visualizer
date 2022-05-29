@@ -1,4 +1,4 @@
-import {Component, createRef, RefObject} from 'preact';
+import {MutableRef, useRef, useEffect} from 'preact/hooks';
 
 export interface AudioVisualiserProps {
 	audioData: Uint8Array;
@@ -7,31 +7,22 @@ export interface AudioVisualiserProps {
 	height?: number;
 }
 
-export class AudioVisualiser extends Component<AudioVisualiserProps> {
-	public canvas: RefObject<HTMLCanvasElement>;
+export function AudioVisualiser({
+	classes,
+	audioData,
+	width = 300,
+	height = 300,
+}: AudioVisualiserProps) {
+	const canvasRef = useRef<HTMLCanvasElement>();
 
-	constructor(props: AudioVisualiserProps) {
-		super(props);
-
-		this.canvas = createRef();
-	}
-
-	componentDidUpdate() {
-		this.draw();
-	}
-
-	draw() {
-		const {audioData} = this.props;
-
-		const canvas = this.canvas.current!;
-
-		const {height, width} = canvas;
+	const draw = () => {
+		const canvas = canvasRef.current!;
 
 		const context = canvas.getContext('2d')!;
 
-		let x = 0;
+		const {height, width} = canvas;
 
-		const sliceWidth = Number(width) / audioData.length;
+		const sliceWidth = width / audioData.length;
 
 		context.lineWidth = 2;
 		context.strokeStyle = '#000000';
@@ -39,6 +30,8 @@ export class AudioVisualiser extends Component<AudioVisualiserProps> {
 
 		context.beginPath();
 		context.moveTo(0, height / 2);
+
+		let x = 0;
 
 		for (const item of audioData) {
 			const y = (item / 255) * height;
@@ -48,16 +41,16 @@ export class AudioVisualiser extends Component<AudioVisualiserProps> {
 
 		context.lineTo(x, height / 2);
 		context.stroke();
-	}
+	};
 
-	render() {
-		return (
-			<canvas
-				class={this.props.classes}
-				width={this.props.width ?? '300'}
-				height={this.props.height ?? '300'}
-				ref={this.canvas}
-			/>
-		);
-	}
+	useEffect(draw);
+
+	return (
+		<canvas
+			class={classes}
+			width={width}
+			height={height}
+			ref={canvasRef as MutableRef<HTMLCanvasElement>}
+		/>
+	);
 }
