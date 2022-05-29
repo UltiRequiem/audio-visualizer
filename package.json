@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "check": "xo && tsc"
   },
   "dependencies": {
     "preact": "^10.5.15"
@@ -23,7 +24,8 @@
     "rules": {
       "import/extensions": "off",
       "unicorn/filename-case": "off",
-      "@typescript-eslint/no-floating-promises": "off"
+      "@typescript-eslint/no-floating-promises": "off",
+      "@typescript-eslint/no-unused-expressions": "off"
     }
   }
 }

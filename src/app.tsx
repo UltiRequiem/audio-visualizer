@@ -4,7 +4,7 @@ import {AudioAnalyser, Footer, GetMicrophoneInput} from './components';
 export function App() {
 	const [microphone, setMicrophone] = useState<MediaStream>();
 
-	const getMicrophone = async () => {
+	const getMic = async () => {
 		const audio = await navigator.mediaDevices.getUserMedia({
 			audio: true,
 			video: false,
@@ -13,7 +13,7 @@ export function App() {
 		setMicrophone(audio);
 	};
 
-	const stopMicrophone = () => {
+	const stopMic = () => {
 		for (const track of microphone!.getAudioTracks()) {
 			track.stop();
 		}
@@ -21,15 +21,15 @@ export function App() {
 		setMicrophone(undefined);
 	};
 
-	const toggleMicrophone = () => {
-		microphone ? stopMicrophone() : getMicrophone();
+	const toggleMic = () => {
+		microphone ? stopMic() : getMic();
 	};
 
 	return (
 		<main class='bg-green-300 min-h-screen flex flex-col items-center p-10'>
 			<h1 class='text-3xl underline m-3'>Audio Visualizer</h1>
 
-			<GetMicrophoneInput onClick={toggleMicrophone} microphone={microphone} />
+			<GetMicrophoneInput onClick={toggleMic} microphone={microphone} />
 
 			<section>
 				{microphone && (
