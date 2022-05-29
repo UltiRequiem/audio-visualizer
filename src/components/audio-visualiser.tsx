@@ -1,15 +1,17 @@
-import {MutableRef, useRef, useEffect} from 'preact/hooks';
+import {useEffect, useRef} from 'preact/hooks';
 
 export interface AudioVisualiserProps {
 	audioData: Uint8Array;
 	classes?: string;
 	width?: number;
+	lineWidth?: number;
 	height?: number;
 }
 
 export function AudioVisualiser({
 	classes,
 	audioData,
+	lineWidth = 3,
 	width = 300,
 	height = 300,
 }: AudioVisualiserProps) {
@@ -24,7 +26,7 @@ export function AudioVisualiser({
 
 		const sliceWidth = width / audioData.length;
 
-		context.lineWidth = 2;
+		context.lineWidth = lineWidth;
 		context.strokeStyle = '#000000';
 		context.clearRect(0, 0, width, height);
 
@@ -44,11 +46,6 @@ export function AudioVisualiser({
 	});
 
 	return (
-		<canvas
-			class={classes}
-			width={width}
-			height={height}
-			ref={canvasRef}
-		/>
+		<canvas class={classes} width={width} height={height} ref={canvasRef} />
 	);
 }

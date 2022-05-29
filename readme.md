@@ -2,8 +2,8 @@
 
 Audio Waves Vizualizer.
 
-Made with [Preact](https://preactjs.com),
-[TailwindCSS](https://tailwindcss.com) and
+Made with [Preact](https://preactjs.com), [TailwindCSS](https://tailwindcss.com)
+and
 [The Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API).
 
 ## Visit The Site

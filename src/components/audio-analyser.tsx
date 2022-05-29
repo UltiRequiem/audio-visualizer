@@ -7,14 +7,12 @@ export interface AudioAnalyserProps {
 	width?: number;
 	height?: number;
 }
+
 export interface AudioAnalyserState {
 	audioData: Uint8Array;
 }
 
-export class AudioAnalyser extends Component<
-AudioAnalyserProps,
-AudioAnalyserState
-> {
+export class AudioAnalyser extends Component<AudioAnalyserProps, AudioAnalyserState> {
 	public audioContext?: AudioContext;
 	public analyser?: AnalyserNode;
 	public dataArray?: Uint8Array;
