@@ -1,4 +1,4 @@
-audio vizualizer
+# Audio Vizualizer
 
 ## Deploy
 
