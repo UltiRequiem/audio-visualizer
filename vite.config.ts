@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
+import {env} from 'node:process';
 
-// https://vitejs.dev/config/
+
 export default defineConfig({
-  plugins: [preact()]
+  plugins: [preact()],
+  base: env.IS_GITHUB ? 'audio-visualizer' : undefined,
 })
