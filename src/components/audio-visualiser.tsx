@@ -13,9 +13,9 @@ export function AudioVisualiser({
 	width = 300,
 	height = 300,
 }: AudioVisualiserProps) {
-	const canvasRef = useRef<HTMLCanvasElement>();
+	const canvasRef = useRef<HTMLCanvasElement>(null);
 
-	const draw = () => {
+	useEffect(() => {
 		const canvas = canvasRef.current!;
 
 		const context = canvas.getContext('2d')!;
@@ -41,16 +41,14 @@ export function AudioVisualiser({
 
 		context.lineTo(x, height / 2);
 		context.stroke();
-	};
-
-	useEffect(draw);
+	});
 
 	return (
 		<canvas
 			class={classes}
 			width={width}
 			height={height}
-			ref={canvasRef as MutableRef<HTMLCanvasElement>}
+			ref={canvasRef}
 		/>
 	);
 }
