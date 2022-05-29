@@ -1,4 +1,4 @@
-import {Component} from 'preact';
+import {useEffect, useState} from 'preact/hooks';
 import {AudioVisualiser} from './audio-visualiser';
 
 export interface AudioAnalyserProps {
@@ -7,55 +7,41 @@ export interface AudioAnalyserProps {
 	width?: number;
 	height?: number;
 }
+export function AudioAnalyser({
+	width,
+	height,
+	classses,
+	audio,
+}: AudioAnalyserProps) {
+	const [audioData, setAudioData] = useState(new Uint8Array(0));
 
-export interface AudioAnalyserState {
-	audioData: Uint8Array;
-}
+	useEffect(() => {
+		const audioContext = new AudioContext();
+		const analyser = audioContext.createAnalyser();
+		const dataArray = new Uint8Array(analyser.frequencyBinCount);
+		const source = audioContext.createMediaStreamSource(audio);
 
-export class AudioAnalyser extends Component<AudioAnalyserProps, AudioAnalyserState> {
-	public audioContext?: AudioContext;
-	public analyser?: AnalyserNode;
-	public dataArray?: Uint8Array;
-	public source?: MediaStreamAudioSourceNode;
-	public rafId?: number;
+		source.connect(analyser);
 
-	constructor(props: AudioAnalyserProps) {
-		super(props);
+		let rafId = requestAnimationFrame(function tick() {
+			analyser.getByteTimeDomainData(dataArray);
+			setAudioData(dataArray);
+			rafId = requestAnimationFrame(tick);
+		});
 
-		this.state = {audioData: new Uint8Array(0)};
+		return () => {
+			cancelAnimationFrame(rafId);
+			analyser.disconnect();
+			source.disconnect();
+		};
+	}, [audioData]);
 
-		this.tick = this.tick.bind(this);
-	}
-
-	componentDidMount() {
-		this.audioContext = new AudioContext();
-		this.analyser = this.audioContext.createAnalyser();
-		this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
-		this.source = this.audioContext.createMediaStreamSource(this.props.audio);
-		this.source.connect(this.analyser);
-		this.rafId = requestAnimationFrame(this.tick);
-	}
-
-	tick() {
-		this.analyser!.getByteTimeDomainData(this.dataArray!);
-		this.setState({audioData: this.dataArray});
-		this.rafId = requestAnimationFrame(this.tick);
-	}
-
-	componentWillUnmount() {
-		cancelAnimationFrame(this.rafId!);
-		this.analyser!.disconnect();
-		this.source!.disconnect();
-	}
-
-	render() {
-		return (
-			<AudioVisualiser
-				width={this.props.width}
-				height={this.props.height}
-				classes={this.props.classses}
-				audioData={this.state.audioData}
-			/>
-		);
-	}
+	return (
+		<AudioVisualiser
+			width={width}
+			height={height}
+			classes={classses}
+			audioData={audioData}
+		/>
+	);
 }
