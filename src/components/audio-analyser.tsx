@@ -7,7 +7,7 @@ export interface AudioAnalyserProps {
 	width?: number;
 	height?: number;
 }
-export function AudioAnalysera({
+export function AudioAnalyser({
 	width,
 	height,
 	classses,
