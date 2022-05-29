@@ -23,14 +23,14 @@ export function AudioAnalyser({
 
 		source.connect(analyser);
 
-		let rafID = requestAnimationFrame(function tick() {
+		let rafId = requestAnimationFrame(function tick() {
 			analyser.getByteTimeDomainData(dataArray);
 			setAudioData(dataArray);
-			rafID = requestAnimationFrame(tick);
+			rafId = requestAnimationFrame(tick);
 		});
 
 		return () => {
-			cancelAnimationFrame(rafID);
+			cancelAnimationFrame(rafId);
 			analyser.disconnect();
 			source.disconnect();
 		};
