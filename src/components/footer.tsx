@@ -1,6 +1,6 @@
-export const Footer = () => {
-	const createdYear = 2022;
+const createdYear = 2022;
 
+export const Footer = () => {
 	const currentYear = new Date().getFullYear();
 
 	const yearToShow = currentYear === createdYear
