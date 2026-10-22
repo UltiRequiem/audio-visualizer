@@ -8,29 +8,16 @@ and
 
 ## Visit The Site
 
-### GitHub Pages 🐱
-
 https://ulti.js.org/audio-visualizer
-
-### Cloudflare Workers 👷
-
-https://audio-visualizer.pages.dev
-
-### Netlify 🧀
-
-https://ulti-audio-visualizer.netlify.app
 
 ## Support
 
 Open an Issue, I will check it a soon as possible 👀
 
 If you want to hurry me up a bit
-[send me a tweet](https://twitter.com/UltiRequiem) 😆
+[send me a tweet](https://x.com/UltiRequiem) 😆
 
-Consider [supporting me on Patreon](https://patreon.com/UltiRequiem) if you like
-my work 🙏
-
-Don't forget to start the repo ⭐
+Don't forget to star the repo ⭐
 
 ## Authors
 
